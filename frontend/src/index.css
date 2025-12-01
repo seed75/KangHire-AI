@@ -1,0 +1,27 @@
+/* index.css - 전역 기본값만 가볍게 설정 */
+
+/* 다크 모드 색상 체계 정도만 유지 */
+:root {
+  color-scheme: dark;
+}
+
+/* 박스 사이즈는 border-box로 통일 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* html, body, #root 공간을 전체 화면으로 */
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* #root 에는 더 이상 max-width, padding, text-align 없음 */
+#root {
+  min-height: 100vh;
+}

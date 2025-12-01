@@ -1,0 +1,253 @@
+/* 전체 배경: 우주 느낌 + 아래쪽에서 빛나는 그라디언트 */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at 20% 0%, #111827 0, #020617 45%, #000 100%);
+  color: #e5e7eb;
+}
+
+/* 루트 컨테이너: 화면 가운데 정렬 */
+.kh-root {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+}
+
+/* 가운데 전체 박스 */
+.kh-shell {
+  width: 100%;
+  max-width: 1100px;
+  background: rgba(15, 23, 42, 0.92); /* slate-900 비슷 */
+  border-radius: 1.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  box-shadow:
+    0 30px 80px rgba(15, 23, 42, 0.9),
+    0 0 0 1px rgba(15, 23, 42, 0.8);
+  padding: 2.5rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* 상단 헤더: 작은 pill + 큰 제목 + 설명 */
+.kh-header-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(15, 118, 110, 0.2);
+  border: 1px solid rgba(45, 212, 191, 0.4);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a5f3fc;
+}
+
+.kh-title {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  margin: 0.75rem 0 0.25rem;
+  font-weight: 700;
+}
+
+.kh-title span {
+  font-weight: 400;
+  color: #a5b4fc;
+  font-style: italic;
+}
+
+.kh-subtitle {
+  margin: 0;
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+/* 메인 레이아웃: 좌측 입력, 우측 결과 */
+.kh-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+/* 각 패널 공통 카드 스타일 */
+.kh-panel {
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: radial-gradient(circle at 0% 0%, rgba(30, 64, 175, 0.5), transparent 55%),
+              rgba(15, 23, 42, 0.95);
+  padding: 1.25rem 1.25rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.kh-panel-right {
+  background: radial-gradient(circle at 100% 0%, rgba(14, 165, 233, 0.4), transparent 55%),
+              rgba(15, 23, 42, 0.95);
+}
+
+/* 섹션 헤더 */
+.kh-panel-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+/* 작은 캡션 텍스트 */
+.kh-label {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* 텍스트 영역 */
+.kh-textarea {
+  margin-top: 0.25rem;
+  width: 100%;
+  min-height: 180px;
+  resize: vertical;
+  padding: 0.75rem 0.9rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(55, 65, 81, 0.9);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  font-size: 0.9rem;
+}
+
+.kh-textarea::placeholder {
+  color: #6b7280;
+}
+
+/* 파일 업로드 줄 */
+.kh-file-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.kh-file-row input[type="file"] {
+  font-size: 0.75rem;
+}
+
+.kh-selected-file {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* 버튼 영역 */
+.kh-button-row {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.kh-btn {
+  flex: 1 1 120px;
+  padding: 0.55rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(15, 23, 42, 0.95);
+  color: #e5e7eb;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.18s ease-out;
+}
+
+.kh-btn:hover {
+  border-color: #e5e7eb;
+  background: rgba(30, 64, 175, 0.9);
+}
+
+/* AI 버튼 강조 */
+.kh-btn-primary {
+  border-color: rgba(129, 140, 248, 0.9);
+  background: linear-gradient(135deg, #4f46e5, #14b8a6);
+}
+
+.kh-btn-primary:hover {
+  background: linear-gradient(135deg, #6366f1, #22c55e);
+}
+
+/* 결과 영역 텍스트 */
+.kh-result-placeholder {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.kh-result-error {
+  font-size: 0.9rem;
+  color: #f97373;
+}
+
+.kh-result-summary {
+  font-size: 0.9rem;
+  color: #e5e7eb;
+}
+
+/* 태그 리스트 */
+.kh-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+
+.kh-tag-found {
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(22, 163, 74, 0.2);
+  border: 1px solid rgba(52, 211, 153, 0.6);
+  font-size: 0.75rem;
+}
+
+.kh-tag-missing {
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(185, 28, 28, 0.2);
+  border: 1px solid rgba(248, 113, 113, 0.7);
+  font-size: 0.75rem;
+}
+
+/* 점수 */
+.kh-score-box {
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.kh-score-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+/* 추천 리스트 */
+.kh-reco-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+}
+
+/* 반응형: 태블릿/모바일에서 1컬럼으로 변경 */
+@media (max-width: 900px) {
+  .kh-shell {
+    padding: 1.75rem 1.25rem 2rem;
+  }
+
+  .kh-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 작은 모바일에서 폰트/간격 살짝 줄이기 */
+@media (max-width: 600px) {
+  .kh-title {
+    font-size: 1.6rem;
+  }
+
+  .kh-shell {
+    border-radius: 1.1rem;
+  }
+}
