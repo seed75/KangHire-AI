@@ -26,11 +26,11 @@ export default function ResumeAnalyzerPage() {
   const [targetRole, setTargetRole] = useState<string>("Software Developer");
 
   const handleRoleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  setTargetRole(e.target.value);
+    setTargetRole(e.target.value);
   };
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-  setResumeText(e.target.value);
+    setResumeText(e.target.value);
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,12 +46,10 @@ export default function ResumeAnalyzerPage() {
 
   const handleAnalyzeRule = async () => {
     if (!resumeText.trim()) {
-      setErrorMessage("먼저 이력서 텍스트를 입력해 주세요.");
+      setErrorMessage("Please enter your resume text first.");
       setStatus("error");
       return;
     }
-
-  
 
     resetStateBeforeRequest();
 
@@ -59,25 +57,25 @@ export default function ResumeAnalyzerPage() {
       const response = await fetch(`${API_BASE_URL}/analyze_resume`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: resumeText, target_role: targetRole,}), // include target_role in the request body
+        body: JSON.stringify({ text: resumeText, target_role: targetRole }),
       });
 
       if (!response.ok) {
-        throw new Error(`서버 오류 (status: ${response.status})`);
+        throw new Error(`Server error (status: ${response.status})`);
       }
 
       const data: AiAnalysisResult = await response.json();
       setResult(data);
       setStatus("success");
     } catch (err: any) {
-      setErrorMessage(err.message ?? "알 수 없는 오류가 발생했습니다.");
+      setErrorMessage(err.message ?? "An unknown error occurred.");
       setStatus("error");
     }
   };
 
   const handleAnalyzeAiText = async () => {
     if (!resumeText.trim()) {
-      setErrorMessage("먼저 이력서 텍스트를 입력해 주세요.");
+      setErrorMessage("Please enter your resume text first.");
       setStatus("error");
       return;
     }
@@ -88,11 +86,11 @@ export default function ResumeAnalyzerPage() {
       const response = await fetch(`${API_BASE_URL}/analyze_resume_ai`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: resumeText, target_role: targetRole }), // include target_role in the request body
+        body: JSON.stringify({ text: resumeText, target_role: targetRole }),
       });
 
       if (!response.ok) {
-        throw new Error(`서버 오류 (status: ${response.status})`);
+        throw new Error(`Server error (status: ${response.status})`);
       }
 
       const data: AiAnalysisResult = await response.json();
@@ -105,14 +103,14 @@ export default function ResumeAnalyzerPage() {
         setStatus("success");
       }
     } catch (err: any) {
-      setErrorMessage(err.message ?? "알 수 없는 오류가 발생했습니다.");
+      setErrorMessage(err.message ?? "An unknown error occurred.");
       setStatus("error");
     }
   };
 
   const handleAnalyzeAiFile = async () => {
     if (!selectedFile) {
-      setErrorMessage("먼저 PDF 또는 DOCX 이력서 파일을 선택해 주세요.");
+      setErrorMessage("Please select a PDF or DOCX resume file first.");
       setStatus("error");
       return;
     }
@@ -130,7 +128,7 @@ export default function ResumeAnalyzerPage() {
       });
 
       if (!response.ok) {
-        throw new Error(`서버 오류 (status: ${response.status})`);
+        throw new Error(`Server error (status: ${response.status})`);
       }
 
       const data: AiAnalysisResult = await response.json();
@@ -143,7 +141,7 @@ export default function ResumeAnalyzerPage() {
         setStatus("success");
       }
     } catch (err: any) {
-      setErrorMessage(err.message ?? "알 수 없는 오류가 발생했습니다.");
+      setErrorMessage(err.message ?? "An unknown error occurred.");
       setStatus("error");
     }
   };
@@ -152,13 +150,13 @@ export default function ResumeAnalyzerPage() {
     if (status === "idle") {
       return (
         <p className="kh-result-placeholder">
-          분석 결과가 여기 표시됩니다. 이력서를 입력하고 버튼을 눌러보세요.
+          The analysis results will appear here. Enter your resume and click a button to begin.
         </p>
       );
     }
 
     if (status === "loading") {
-      return <p className="kh-result-placeholder">AI가 이력서를 분석하는 중입니다... 🔍</p>;
+      return <p className="kh-result-placeholder">AI is analyzing your resume... 🔍</p>;
     }
 
     if (status === "error") {
@@ -178,7 +176,7 @@ export default function ResumeAnalyzerPage() {
           <div style={{ marginTop: "0.4rem" }}>
             <span className="kh-label">Detected Skills</span>
             {result.skills_found.length === 0 ? (
-              <p className="kh-result-placeholder">감지된 스킬이 없습니다.</p>
+              <p className="kh-result-placeholder">No skills detected.</p>
             ) : (
               <div className="kh-tag-row">
                 {result.skills_found.map((skill) => (
@@ -193,7 +191,7 @@ export default function ResumeAnalyzerPage() {
           <div style={{ marginTop: "0.6rem" }}>
             <span className="kh-label">Missing / Weak Skills</span>
             {result.skills_missing.length === 0 ? (
-              <p className="kh-result-placeholder">특별히 부족한 스킬이 감지되지 않았습니다.</p>
+              <p className="kh-result-placeholder">No missing or weak skills detected.</p>
             ) : (
               <div className="kh-tag-row">
                 {result.skills_missing.map((skill) => (
@@ -208,7 +206,7 @@ export default function ResumeAnalyzerPage() {
           <div style={{ marginTop: "0.6rem" }}>
             <span className="kh-label">Recommendations</span>
             {result.recommendations.length === 0 ? (
-              <p className="kh-result-placeholder">추천 항목이 없습니다.</p>
+              <p className="kh-result-placeholder">No recommendations available.</p>
             ) : (
               <ul className="kh-reco-list">
                 {result.recommendations.map((item, index) => (
@@ -227,7 +225,7 @@ export default function ResumeAnalyzerPage() {
   return (
     <div className="kh-root">
       <div className="kh-shell">
-        {/* 헤더 */}
+        {/* Header */}
         <header>
           <div className="kh-header-pill">
             <span>Resume Coach</span>
@@ -237,14 +235,13 @@ export default function ResumeAnalyzerPage() {
             Good careers come to those <span>who prepare.</span>
           </h1>
           <p className="kh-subtitle">
-            이력서를 붙여넣거나 PDF/DOCX 파일을 업로드하고, 목표로 하는 직무를 선택하면
-    KangHire AI가 그 역할에 맞춰 강점, 부족한 점, 개선 아이디어를 분석해 줍니다.
+            Paste your resume or upload a PDF/DOCX file. KangHire AI analyzes your strengths, missing skills, and improvement suggestions.
           </p>
         </header>
 
-        {/* 메인 2컬럼 레이아웃 */}
+        {/* Main layout: 2 columns */}
         <main className="kh-main-grid">
-          {/* 왼쪽: 입력 패널 */}
+          {/* Left: Input Panel */}
           <section className="kh-panel">
             <div className="kh-panel-title">1. Resume Input</div>
 
@@ -254,38 +251,37 @@ export default function ResumeAnalyzerPage() {
                 className="kh-textarea"
                 value={resumeText}
                 onChange={handleTextChange}
-                placeholder="여기에 영어 이력서를 붙여넣으세요..."
+                placeholder="Paste your English resume here..."
               />
             </div>
 
-              <div style={{ marginTop: "0.4rem" }}>
-    <div className="kh-label">Target role (목표 직무)</div>
-    <select
-      value={targetRole}
-      onChange={handleRoleChange}
-      style={{
-        marginTop: "0.25rem",
-        width: "100%",
-        padding: "0.45rem 0.75rem",
-        borderRadius: "0.6rem",
-        border: "1px solid rgba(55, 65, 81, 0.9)",
-        background: "rgba(15, 23, 42, 0.9)",
-        color: "#e5e7eb",
-        fontSize: "0.85rem",
-      }}
-    >
-      <option value="Software Developer">Software Developer</option>
-      <option value="Frontend Developer">Frontend Developer</option>
-      <option value="Backend Developer">Backend Developer</option>
-      <option value="Data Analyst">Data Analyst</option>
-      <option value="UI/UX Designer">UI/UX Designer</option>
-      <option value="Marketing Specialist">Marketing Specialist</option>
-      <option value="Customer Service">Customer Service</option>
-      <option value="Project Manager">Project Manager</option>
-      <option value="Other">Other / General</option>
-    </select>
-  </div>
-
+            <div style={{ marginTop: "0.4rem" }}>
+              <div className="kh-label">Target Role</div>
+              <select
+                value={targetRole}
+                onChange={handleRoleChange}
+                style={{
+                  marginTop: "0.25rem",
+                  width: "100%",
+                  padding: "0.45rem 0.75rem",
+                  borderRadius: "0.6rem",
+                  border: "1px solid rgba(55, 65, 81, 0.9)",
+                  background: "rgba(15, 23, 42, 0.9)",
+                  color: "#e5e7eb",
+                  fontSize: "0.85rem",
+                }}
+              >
+                <option value="Software Developer">Software Developer</option>
+                <option value="Frontend Developer">Frontend Developer</option>
+                <option value="Backend Developer">Backend Developer</option>
+                <option value="Data Analyst">Data Analyst</option>
+                <option value="UI/UX Designer">UI/UX Designer</option>
+                <option value="Marketing Specialist">Marketing Specialist</option>
+                <option value="Customer Service">Customer Service</option>
+                <option value="Project Manager">Project Manager</option>
+                <option value="Other">Other / General</option>
+              </select>
+            </div>
 
             <div className="kh-file-row">
               <div className="kh-label">Or upload a PDF / DOCX file</div>
@@ -296,7 +292,7 @@ export default function ResumeAnalyzerPage() {
               />
               {selectedFile && (
                 <div className="kh-selected-file">
-                  선택된 파일: {selectedFile.name}
+                  Selected file: {selectedFile.name}
                 </div>
               )}
             </div>
@@ -314,7 +310,7 @@ export default function ResumeAnalyzerPage() {
             </div>
           </section>
 
-          {/* 오른쪽: 결과 패널 */}
+          {/* Right: Result Panel */}
           <section className="kh-panel kh-panel-right">
             <div className="kh-panel-title">2. Analysis Result</div>
             {renderResult()}
